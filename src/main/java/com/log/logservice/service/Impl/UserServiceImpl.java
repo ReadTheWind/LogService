@@ -8,12 +8,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author  liuhuan
+ * 用户Service实现类
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 *查询所有用户
+	 * @return 用户列表
+	 */
 	@Override
 	public List<User> getAll() {
 

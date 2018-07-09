@@ -8,6 +8,7 @@ import java.sql.Date;
 
 /**
  * @Author liuhuan
+ * 用户对象
  */
 @Entity
 @Data

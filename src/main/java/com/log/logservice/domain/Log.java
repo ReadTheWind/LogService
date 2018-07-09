@@ -2,31 +2,52 @@ package com.log.logservice.domain;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
- * @author  lh
+ * @author  liuhuan
+ * log对象
  */
 @Data
+@Entity
+@Table(name="log")
 public class Log implements Serializable{
-	String desc;
-	int maintype;
-	String tables;
-	String type;
-	String username;
-	long casetime;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private  Long id;
+
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "maintype")
+	private int maintype;
+
+	@Column(name = "tables")
+	private String tables;
+
+	@Column(name = "type")
+	private String type;
+
+	@Column(name = "username")
+	private String username;
+
+	@Column(name = "casetime")
+	private  Date casetime;
 
 	/**
 	 * 构造函数
-	 * @param desc 描述
+	 * @param description 描述
 	 * @param maintype
 	 * @param tables
 	 * @param type
 	 * @param username
 	 * @param casetime
 	 */
-	public Log(String desc,int maintype,String tables ,String type,String username,Long casetime){
-		this.desc=desc;
+	public Log(String description,int maintype,String tables ,String type,String username,Date casetime){
+		this.description=description;
 		this.maintype=maintype;
 		this.tables=tables;
 		this.type=type;

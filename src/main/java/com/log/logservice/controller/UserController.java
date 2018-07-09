@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * @Author liuhuan
+ * 用户controller
  */
 @RestController
 @RequestMapping("/user")
@@ -20,6 +21,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
+	/**
+	 * 查询所有用户信息
+	 * @return
+	 */
 	@MainAnnotation(desc = "查询所有操作",maintype = 1,tables = "user",type = "get")
 	@RequestMapping(value = "/getAll",method = RequestMethod.GET)
 	public List<User> getAll(){

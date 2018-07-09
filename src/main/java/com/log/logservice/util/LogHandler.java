@@ -2,31 +2,49 @@ package com.log.logservice.util;
 
 import com.log.logservice.config.RabbitConfig;
 import com.log.logservice.domain.Log;
+import com.log.logservice.service.LogService;
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 /**
  * 队列消费者
- * @author  lh
+ * @author  liuhuan
  */
 @Component
 public class LogHandler {
+	@Autowired
+	LogService logService;
 
+	/**
+	 * 队列消费者
+	 * 监听队列
+	 * @param log
+	 * @param message
+	 * @param channel
+	 */
 	@RabbitListener(queues = {RabbitConfig.DEFAULT_BOOK_QUEUE})
 	public void listenerAutoAck(Log log, Message message, Channel channel) {
 		// TODO 如果手动ACK,消息会被监听消费,但是消息在队列中依旧存在,如果 未配置 acknowledge-mode 默认是会在消费完毕后自动ACK掉
 		final long deliveryTag = message.getMessageProperties().getDeliveryTag();
 		try {
-//			log.info("[listenerAutoAck 监听的消息] - [{}]", book.toString());
 			Thread.sleep(3000);
 			System.out.println("-------------***************************************************-----------");
-			System.out.println("-------------   MQ消费成功:"+log.getUsername()+" -----------");
-			// TODO 通知 MQ 消息已被成功消费,可以ACK了
-			channel.basicAck(deliveryTag, false);
+			//数据库插入日志对象
+			Log rlog=logService.createLog(log);
+			if(rlog != null){
+				System.out.println("-------------   MQ消费成功:"+rlog.getUsername()+" -----------");
+				// TODO 通知 MQ 消息已被成功消费,可以ACK了
+				channel.basicAck(deliveryTag, false);
+			}else{
+				System.out.println("-------------   MQ消费失败:"+rlog+" -----------");
+				//处理失败,重新压入MQ
+				channel.basicRecover();
+			}
 		} catch (IOException e) {
 			try {
 				// TODO 处理失败,重新压入MQ

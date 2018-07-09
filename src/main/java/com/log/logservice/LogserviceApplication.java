@@ -3,6 +3,10 @@ package com.log.logservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author liuhuan
+ * 日志服务启动类
+ */
 @SpringBootApplication
 public class LogserviceApplication {
 
