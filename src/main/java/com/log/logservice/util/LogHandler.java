@@ -37,7 +37,7 @@ public class LogHandler {
 			//数据库插入日志对象
 			Log rlog=logService.createLog(log);
 			if(rlog != null){
-				System.out.println("-------------   MQ消费成功:"+rlog.getUsername()+" -----------");
+				System.out.println("------------- "+RabbitConfig.DEFAULT_BOOK_QUEUE+"MQ消费成功:"+rlog.getUsername()+" -----------");
 				// TODO 通知 MQ 消息已被成功消费,可以ACK了
 				channel.basicAck(deliveryTag, false);
 			}else{
