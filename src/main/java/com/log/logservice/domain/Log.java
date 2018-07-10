@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author  liuhuan
@@ -35,7 +35,7 @@ public class Log implements Serializable{
 	private String username;
 
 	@Column(name = "casetime")
-	private  Date casetime;
+	private Date casetime;
 
 	/**
 	 * 构造函数

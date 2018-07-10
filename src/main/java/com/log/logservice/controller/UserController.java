@@ -30,4 +30,14 @@ public class UserController {
 	public List<User> getAll(){
 		return userService.getAll();
 	}
+
+	/**
+	 * 查询所有用户信息
+	 * @return
+	 */
+	@MainAnnotation(desc = "创建用户对象",maintype = 2,tables = "user",type = "post")
+	@RequestMapping(value = "/create",method = RequestMethod.GET)
+	public List<User> create(){
+		return userService.getAll();
+	}
 }

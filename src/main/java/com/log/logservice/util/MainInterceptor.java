@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author liuhuan
@@ -35,8 +35,7 @@ public class MainInterceptor implements HandlerInterceptor {
 			String tables=mainAnnotation.tables();
 			String type=mainAnnotation.type();
 			String username="guest";
-			Date casetime=new Date(118,1,1);
-			LogUtil.writeMainLog(new Log(description,maintype,tables,type,username,casetime));
+			LogUtil.writeMainLog(new Log(description,maintype,tables,type,username,new Date()));
 		}
 
 	}
